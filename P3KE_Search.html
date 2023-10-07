@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <h1>Search by NIK</h1>
+    <input type="text" id="nikInput" placeholder="Enter NIK">
+    <button onclick="searchRecord()">Search</button>
+
+    <div id="results"></div>
+
+    <script>
+      function searchRecord() {
+        var nik = document.getElementById('nikInput').value;
+        var url = 'https://script.google.com/macros/s/AKfycbzf3h9CFU0wIEDCrmoyBQ6IrVbWFoa-mYYbae90_AgQgXUdk1uUPvshJV5OpjW88XlL/exec';
+        
+        // Make an HTTP GET request to the Apps Script web app URL
+        fetch(url + '?nik=' + nik)
+          .then(response => response.json())
+          .then(data => displayResults(data))
+          .catch(error => console.error('Error:', error));
+      }
+
+      function displayResults(results) {
+        var outputDiv = document.getElementById('results');
+        outputDiv.innerHTML = '';
+
+        if (results.length === 0) {
+          outputDiv.innerHTML = 'No records found for the given NIK.';
+          return;
+        }
+
+        var table = '<table border="1"><tr><th>NO</th><th>ID_P3KE</th><th>NO_KK</th><th>NIK</th><th>KEPALA_RUTA</th><th>ALAMAT</th><th>KALURAHAN</th><th>KAPANEWON</th><th>DESIL</th><th>KETERANGAN</th></tr>';
+
+        for (var i = 0; i < results.length; i++) {
+          table += '<tr>';
+          for (var j = 0; j < results[i].length; j++) {
+            table += '<td>' + results[i][j] + '</td>';
+          }
+          table += '</tr>';
+        }
+
+        table += '</table>';
+        outputDiv.innerHTML = table;
+      }
+    </script>
+  </body>
+</html>
