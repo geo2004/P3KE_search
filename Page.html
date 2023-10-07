@@ -13,13 +13,12 @@
     <script>
       function searchRecord() {
         var nik = document.getElementById('nikInput').value;
-        var url = 'https://script.google.com/macros/s/AKfycbys7qlMEtClz0vTUQgFcj_ZvmLuaUApoVR_0hUMA-so6WV82_Sbp9Vfavs5gp2-VaVa5A/exec';
-        
-        // Make an HTTP GET request to the Apps Script web app URL
-        fetch(url + '?nik=' + nik)
-          .then(response => response.json())
-          .then(data => displayResults(data))
-          .catch(error => console.error('Error:', error));
+        var url = 'https://script.google.com/macros/s/AKfycbys7qlMEtClz0vTUQgFcj_ZvmLuaUApoVR_0hUMA-so6WV82_Sbp9Vfavs5gp2-VaVa5A/exec?nik=' + nik;
+
+        // Create a script element and set the URL with callback function
+        var script = document.createElement('script');
+        script.src = url + '&callback=displayResults';
+        document.body.appendChild(script);
       }
 
       function displayResults(results) {
