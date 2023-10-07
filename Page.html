@@ -10,16 +10,14 @@
 
     <div id="results"></div>
 
-    <script>
-      function searchRecord() {
-        var nik = document.getElementById('nikInput').value;
-        var url = 'https://script.google.com/macros/s/AKfycbzmfEt_KTNI2bDzIWxmx5wcG7_oXJQloemJypJIhF8_UNiXduUpLO8A1iGhLAGFj5o5/exec?nik=' + nik;
-
-        // Create a script element and set the URL with callback function
-        var script = document.createElement('script');
-        script.src = url + '&callback=displayResults';
-        document.body.appendChild(script);
-      }
+<script>
+  function searchRecord() {
+    var nik = document.getElementById('nikInput').value;
+    var url = 'https://script.google.com/macros/s/AKfycbzmfEt_KTNI2bDzIWxmx5wcG7_oXJQloemJypJIhF8_UNiXduUpLO8A1iGhLAGFj5o5/exec?nik=' + nik + '&callback=displayResults';
+    var script = document.createElement('script');
+    script.src = url;
+    document.body.appendChild(script);
+  }
 
       function displayResults(results) {
         var outputDiv = document.getElementById('results');
