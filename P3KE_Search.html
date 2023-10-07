@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pencarian Data P3KE GK 2023</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    .item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 5px 0;
+    }
+    .not-found {
+      font-weight: bold;
+      color: red;
+    }
+	    .footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .footer img {
+      width: 50px; /* Adjust the width as needed */
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h4 class="center-align">Pencarian Data P3KE Gunung Kidul 2023</h4>
+        <div class="input-field">
+          <input type="text" id="nikInput" placeholder="Masukkan NIK CPB">
+          
+        </div>
+        <button class="btn" onclick="searchData()">CARI</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12" id="data-container"></div>
+    </div>
+	
+	  <div class="footer">
+    <p>&copy; 2023, Balai Pelaksana Penyediaan Perumahan Jawa III, Direktorat Jenderal Perumahan, Kementerian Pekerjaan Umum dan Perumahan Rakyat</p>
+    <img src="https://pbs.twimg.com/profile_images/1519149404850376706/EyaYDWzy_400x400.jpg" alt="Logo">
+  </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    const url = 'https://raw.githubusercontent.com/geo2004/P3KE_search/main/P3KE_GK.json';
+    let jsonData = [];
+    const itemsPerPage = 3;
+
+    async function fetchData() {
+      try {
+        const response = await fetch(url);
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    async function displayData(data) {
+      const dataContainer = document.getElementById('data-container');
+      dataContainer.innerHTML = '';  // Clear previous data
+
+      if (data.length === 0) {
+        const notFoundDiv = document.createElement('div');
+        notFoundDiv.classList.add('not-found');
+        notFoundDiv.textContent = 'Data Tidak Ditemukan';
+        dataContainer.appendChild(notFoundDiv);
+        return;
+      }
+
+      data.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('item', 'card-panel', 'hoverable');
+
+        let itemInfo = '';
+        for (const key in item) {
+          itemInfo += `<p>${key}: ${item[key]}</p>`;
+        }
+
+        itemDiv.innerHTML = itemInfo;
+        dataContainer.appendChild(itemDiv);
+      });
+    }
+
+    async function searchData() {
+      const searchInput = document.getElementById('nikInput').value.toLowerCase();
+
+      if (!jsonData.length) {
+        jsonData = await fetchData();
+      }
+
+      const filteredData = jsonData.filter(item => item.NIK.toString().includes(searchInput));
+      const displayedData = filteredData.slice(0, itemsPerPage);
+      displayData(displayedData);
+    }
+  </script>
+</body>
+</html>
