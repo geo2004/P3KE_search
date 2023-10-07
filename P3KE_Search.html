@@ -2,23 +2,27 @@
 <html>
 <head>
   <title>Pencarian Data P3KE GK 2023</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
+    body {
+      font-size: 16px;
+    }
     .item {
       border: 1px solid #ccc;
       padding: 10px;
-      margin: 5px 0;
+      margin: 10px 0;
     }
     .not-found {
       font-weight: bold;
       color: red;
     }
-	    .footer {
+    .footer {
       text-align: center;
       margin-top: 20px;
     }
     .footer img {
-      width: 50px; /* Adjust the width as needed */
+      width: 50px;
       height: auto;
     }
   </style>
@@ -30,7 +34,6 @@
         <h4 class="center-align">Pencarian Data P3KE Gunung Kidul 2023</h4>
         <div class="input-field">
           <input type="text" id="nikInput" placeholder="Masukkan NIK CPB">
-          
         </div>
         <button class="btn" onclick="searchData()">CARI</button>
       </div>
@@ -38,11 +41,11 @@
     <div class="row">
       <div class="col s12" id="data-container"></div>
     </div>
-	
-	  <div class="footer">
+  </div>
+
+  <div class="footer">
     <p>&copy; 2023, Balai Pelaksana Penyediaan Perumahan Jawa III, Direktorat Jenderal Perumahan, Kementerian Pekerjaan Umum dan Perumahan Rakyat</p>
     <img src="https://pbs.twimg.com/profile_images/1519149404850376706/EyaYDWzy_400x400.jpg" alt="Logo">
-  </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
